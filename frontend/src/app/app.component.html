@@ -1,3 +1,12 @@
-<button mat-raised-button>Click</button>
+<app-header (onMenuClicked)="menuClicked.set(!menuClicked())" />
 
-<router-outlet />
+<mat-drawer-container>
+  <mat-drawer
+    style="background-color: rgb(54, 54, 54)"
+    mode="side"
+    [opened]="menuClicked()"
+  >
+    <side-nav />
+  </mat-drawer>
+  <main><router-outlet /></main>
+</mat-drawer-container>
