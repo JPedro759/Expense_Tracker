@@ -1,0 +1,62 @@
+.insert-form {
+  h2 {
+    color: #69f0ae;
+  }
+
+  mat-form-field {
+    margin-right: 1rem;
+  }
+
+  .year {
+    width: 120px;
+  }
+
+  .month,
+  .type {
+    width: 150px;
+  }
+
+  .day {
+    width: 75px;
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      display: none;
+    }
+  }
+
+  .amount {
+    width: 200px;
+
+    span {
+      color: #f4d03f;
+    }
+  }
+
+  .description {
+    width: 300px;
+  }
+
+  .example-right-align {
+    text-align: right;
+  }
+
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+
+  button {
+    border-radius: 7px;
+  }
+}
+
+.table {
+  margin-top: 30px;
+  width: 100%;
+
+  .mat-mdc-header-cell {
+    font-size: 1.1rem;
+    color: #69f0ae;
+  }
+}

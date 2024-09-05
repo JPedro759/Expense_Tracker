@@ -13,5 +13,5 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  menuClicked = signal(false);
+  menuClicked = signal(true);
 }
