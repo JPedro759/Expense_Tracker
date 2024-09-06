@@ -71,7 +71,7 @@
 </section>
 
 <section class="table">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>ID</th>
       <td mat-cell *matCellDef="let element">{{ element.id }}</td>
@@ -103,6 +103,29 @@
       <th mat-header-cell *matHeaderCellDef>Created On</th>
       <td mat-cell *matCellDef="let element">
         {{ element.createdOn | date : "YYYY-MM-dd" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          class="btn_edit"
+          mat-icon-button
+          matTooltip="Edit this transaction"
+          (click)="editTransaction(element)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          color="warn"
+          matTooltip="Delete this transaction"
+          (click)="deleteTransation()"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </ng-container>
 

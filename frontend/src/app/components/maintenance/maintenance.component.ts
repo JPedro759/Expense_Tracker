@@ -9,6 +9,10 @@ import {
 
 import { CustomValidators } from '../../validators/CustomValidators';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmMsgComponent } from '../confirm-msg/confirm-msg.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Transaction } from '../../interfaces/transaction.interface';
 
 @Component({
   selector: 'maintenance',
@@ -22,6 +26,8 @@ export default class MaintenanceComponent implements OnInit {
   months: { index: number; name: string }[] = [];
 
   #fb = inject(FormBuilder);
+  #dialog = inject(MatDialog);
+  #snackBar = inject(MatSnackBar);
 
   transactionForm: FormGroup = this.#fb.group({
     id: [0],
@@ -36,9 +42,17 @@ export default class MaintenanceComponent implements OnInit {
     type: [null, Validators.required],
   });
 
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<Transaction>();
 
-  columns = ['id', 'date', 'description', 'amount', 'type', 'createdOn'];
+  columns = [
+    'id',
+    'date',
+    'description',
+    'amount',
+    'type',
+    'createdOn',
+    'delete',
+  ];
 
   constructor() {
     let year = new Date();
@@ -62,7 +76,7 @@ export default class MaintenanceComponent implements OnInit {
         date: new Date(),
         description: 'Description 1',
         amount: 100,
-        type: 'credit',
+        type: 'CREDIT',
         createdOn: new Date(),
       },
       {
@@ -70,7 +84,7 @@ export default class MaintenanceComponent implements OnInit {
         date: new Date(),
         description: 'Description 2',
         amount: 200,
-        type: 'debit',
+        type: 'DEBIT',
         createdOn: new Date(),
       },
       {
@@ -78,7 +92,7 @@ export default class MaintenanceComponent implements OnInit {
         date: new Date(),
         description: 'Description 3',
         amount: 200,
-        type: 'debit',
+        type: 'DEBIT',
         createdOn: new Date(),
       },
       {
@@ -86,7 +100,7 @@ export default class MaintenanceComponent implements OnInit {
         date: new Date(),
         description: 'Description 4',
         amount: 200,
-        type: 'debit',
+        type: 'CREDIT',
         createdOn: new Date(),
       },
       {
@@ -94,7 +108,7 @@ export default class MaintenanceComponent implements OnInit {
         date: new Date(),
         description: 'Description 5',
         amount: 200,
-        type: 'debit',
+        type: 'CREDIT',
         createdOn: new Date(),
       },
     ];
@@ -128,5 +142,33 @@ export default class MaintenanceComponent implements OnInit {
     };
 
     console.log(transaction);
+  }
+
+  // Método para carregar a transação no formulário para edição
+  editTransaction(transaction: Transaction) {
+    this.transactionForm.patchValue({
+      id: transaction.id,
+      year: transaction.date.getFullYear(),
+      month: transaction.date.getMonth(),
+      day: transaction.date.getDate(),
+      description: transaction.description,
+      amount: transaction.amount,
+      type: transaction.type,
+    });
+  }
+
+  deleteTransation() {
+    let msgRef = this.#dialog.open(ConfirmMsgComponent, {
+      data: {
+        title: 'Delete Confirmation',
+        message: 'This will delete the transaction. Are you sure?',
+      },
+    });
+
+    msgRef.afterClosed().subscribe({
+      next: (res: boolean) => {
+        if (res) this.#snackBar.open('Item Deleted!');
+      },
+    });
   }
 }
