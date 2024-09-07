@@ -7,26 +7,26 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  baseUrl: string = 'https://localhost:44373/api/Transaction';
+  #baseUrl: string = 'https://localhost:44373/api/Transaction';
 
   #http = inject(HttpClient);
 
   upsertTransaction(transaction: Transaction): Observable<Transaction> {
-    return this.#http.post<Transaction>(`${this.baseUrl}/Upsert`, transaction);
+    return this.#http.post<Transaction>(`${this.#baseUrl}/Upsert`, transaction);
   }
 
   getAllTransactions(): Observable<Transaction[]> {
-    return this.#http.get<Transaction[]>(`${this.baseUrl}/GetAll`);
+    return this.#http.get<Transaction[]>(`${this.#baseUrl}/GetAll`);
   }
 
   editTransaction(transaction: Transaction): Observable<Transaction> {
     return this.#http.put<Transaction>(
-      `${this.baseUrl}/Edit/${transaction.id}`,
+      `${this.#baseUrl}/Edit/${transaction.id}`,
       transaction
     );
   }
 
   deleteTransaction(id: number): Observable<void> {
-    return this.#http.delete<void>(`${this.baseUrl}/Delete/${id}`);
+    return this.#http.delete<void>(`${this.#baseUrl}/Delete/${id}`);
   }
 }
