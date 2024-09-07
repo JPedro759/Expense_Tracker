@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "backend.Controllers.TransactionController",
+    "Method": "GetAll",
+    "RelativePath": "api/Transaction/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.TransactionController",
+    "Method": "Upsert",
+    "RelativePath": "api/Transaction/Upsert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "transaction",
+        "Type": "DataAccess.Entities.Transaction",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

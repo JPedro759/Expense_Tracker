@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmMsgComponent } from '../confirm-msg/confirm-msg.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Transaction } from '../../interfaces/transaction.interface';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'maintenance',
@@ -28,6 +29,7 @@ export default class MaintenanceComponent implements OnInit {
   #fb = inject(FormBuilder);
   #dialog = inject(MatDialog);
   #snackBar = inject(MatSnackBar);
+  #apiService = inject(ApiService);
 
   transactionForm: FormGroup = this.#fb.group({
     id: [0],
@@ -69,49 +71,6 @@ export default class MaintenanceComponent implements OnInit {
         ),
       });
     }
-
-    this.dataSource.data = [
-      {
-        id: 1,
-        date: new Date(),
-        description: 'Description 1',
-        amount: 100,
-        type: 'CREDIT',
-        createdOn: new Date(),
-      },
-      {
-        id: 2,
-        date: new Date(),
-        description: 'Description 2',
-        amount: 200,
-        type: 'DEBIT',
-        createdOn: new Date(),
-      },
-      {
-        id: 3,
-        date: new Date(),
-        description: 'Description 3',
-        amount: 200,
-        type: 'DEBIT',
-        createdOn: new Date(),
-      },
-      {
-        id: 4,
-        date: new Date(),
-        description: 'Description 4',
-        amount: 200,
-        type: 'CREDIT',
-        createdOn: new Date(),
-      },
-      {
-        id: 5,
-        date: new Date(),
-        description: 'Description 5',
-        amount: 200,
-        type: 'CREDIT',
-        createdOn: new Date(),
-      },
-    ];
   }
 
   ngOnInit(): void {
@@ -126,6 +85,12 @@ export default class MaintenanceComponent implements OnInit {
       ?.valueChanges.subscribe(() =>
         this.transactionForm.get('day')?.updateValueAndValidity()
       );
+
+    this.#apiService.getAllTransactions().subscribe({
+      next: (transactions: Transaction[]) => {
+        this.dataSource.data = transactions;
+      },
+    })
   }
 
   insertForm() {
@@ -141,11 +106,19 @@ export default class MaintenanceComponent implements OnInit {
       createdOn: new Date(),
     };
 
-    console.log(transaction);
+    this.#apiService.upsertTransaction(transaction).subscribe({
+      next: (res: Transaction) => {
+        this.transactionForm.reset();
+        this.dataSource.data = [res, ...this.dataSource.data];
+      },
+    });
   }
 
-  // Método para carregar a transação no formulário para edição
   editTransaction(transaction: Transaction) {
+    this.dataSource.data = this.dataSource.data.filter(
+      (v) => v.id != transaction.id
+    );
+
     this.transactionForm.patchValue({
       id: transaction.id,
       year: transaction.date.getFullYear(),
