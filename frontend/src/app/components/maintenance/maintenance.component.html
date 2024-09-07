@@ -113,7 +113,7 @@
           class="btn_edit"
           mat-icon-button
           matTooltip="Edit this transaction"
-          (click)="editTransaction(element)"
+          (click)="edit(element)"
         >
           <mat-icon>edit</mat-icon>
         </button>
@@ -122,7 +122,7 @@
           mat-icon-button
           color="warn"
           matTooltip="Delete this transaction"
-          (click)="deleteTransation()"
+          (click)="delete(element.id)"
         >
           <mat-icon>delete</mat-icon>
         </button>

@@ -30,8 +30,39 @@ public class TransactionController : ControllerBase
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll()
     {
-        var transaction = await Context.Transactions.OrderBy(t => t.Id).ToListAsync();
+        var transactions = await Context.Transactions.OrderBy(t => t.Id).ToListAsync();
 
-        return Ok(transaction);
+        return Ok(transactions);
+    }
+
+    [HttpPut("Edit/{id}")]
+    public async Task<IActionResult> Edit(int id, Transaction updatedTransaction)
+    {
+        var existingTransaction = await Context.Transactions.FirstOrDefaultAsync(t => t.Id == id);
+
+        if (existingTransaction == null) return NotFound();
+
+        existingTransaction.Date = updatedTransaction.Date;
+        existingTransaction.Description = updatedTransaction.Description;
+        existingTransaction.Amount = updatedTransaction.Amount;
+        existingTransaction.Type = updatedTransaction.Type;
+        existingTransaction.CreatedOn = DateTime.Now;
+
+        await Context.SaveChangesAsync();
+
+        return Ok(existingTransaction);
+    }
+
+    [HttpDelete("Delete/{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var transaction = await Context.Transactions.FindAsync(id);
+
+        if (transaction == null) return NotFound();
+
+        Context.Transactions.Remove(transaction);
+        await Context.SaveChangesAsync();
+
+        return Ok();
     }
 }

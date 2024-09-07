@@ -90,7 +90,7 @@ export default class MaintenanceComponent implements OnInit {
       next: (transactions: Transaction[]) => {
         this.dataSource.data = transactions;
       },
-    })
+    });
   }
 
   insertForm() {
@@ -114,23 +114,31 @@ export default class MaintenanceComponent implements OnInit {
     });
   }
 
-  editTransaction(transaction: Transaction) {
-    this.dataSource.data = this.dataSource.data.filter(
-      (v) => v.id != transaction.id
-    );
+  edit(transaction: Transaction) {
+    const transactionDate = new Date(transaction.date);
 
     this.transactionForm.patchValue({
       id: transaction.id,
-      year: transaction.date.getFullYear(),
-      month: transaction.date.getMonth(),
-      day: transaction.date.getDate(),
+      year: transactionDate.getFullYear(),
+      month: transactionDate.getMonth(),
+      day: transactionDate.getDate(),
       description: transaction.description,
       amount: transaction.amount,
       type: transaction.type,
     });
+
+    this.#apiService.editTransaction(transaction).subscribe({
+      next: (res: Transaction) => {
+        this.dataSource.data = [res, ...this.dataSource.data];
+
+        this.dataSource.data = this.dataSource.data.filter(
+          (v) => v.id != transaction.id
+        );
+      },
+    });
   }
 
-  deleteTransation() {
+  delete(id: number) {
     let msgRef = this.#dialog.open(ConfirmMsgComponent, {
       data: {
         title: 'Delete Confirmation',
@@ -139,8 +147,28 @@ export default class MaintenanceComponent implements OnInit {
     });
 
     msgRef.afterClosed().subscribe({
-      next: (res: boolean) => {
-        if (res) this.#snackBar.open('Item Deleted!');
+      next: (confirmed: boolean) => {
+        if (confirmed) {
+          this.#apiService.deleteTransaction(id).subscribe({
+            next: () => {
+              this.dataSource.data = this.dataSource.data.filter(
+                (transaction) => transaction.id !== id
+              );
+              this.#snackBar.open(
+                'Transaction deleted successfully!',
+                'Close',
+                {
+                  duration: 3000,
+                }
+              );
+            },
+            error: () => {
+              this.#snackBar.open('Failed to delete transaction!', 'Close', {
+                duration: 3000,
+              });
+            },
+          });
+        }
       },
     });
   }

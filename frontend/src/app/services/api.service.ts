@@ -18,4 +18,15 @@ export class ApiService {
   getAllTransactions(): Observable<Transaction[]> {
     return this.#http.get<Transaction[]>(`${this.baseUrl}/GetAll`);
   }
+
+  editTransaction(transaction: Transaction): Observable<Transaction> {
+    return this.#http.put<Transaction>(
+      `${this.baseUrl}/Edit/${transaction.id}`,
+      transaction
+    );
+  }
+
+  deleteTransaction(id: number): Observable<void> {
+    return this.#http.delete<void>(`${this.baseUrl}/Delete/${id}`);
+  }
 }
