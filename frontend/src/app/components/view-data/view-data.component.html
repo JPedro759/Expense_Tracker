@@ -1,0 +1,37 @@
+@for (monthData of data; track data) {
+<mat-expansion-panel expanded>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <span>{{ monthData.year }}</span>
+      <span>{{ monthData.month | monthName }}</span>
+    </mat-panel-title>
+    <mat-panel-description>
+      <div class="sg">
+        Savings:
+        <span>{{ getSavings(monthData.year, monthData.month) }}</span>
+      </div>
+      <div class="ex">
+        Expenditures:
+        <span>{{ getExpenditure(monthData.year, monthData.month) }}</span>
+      </div>
+      <div class="er">
+        Earnings:
+        <span>{{ getEarnings(monthData.year, monthData.month) }}</span>
+      </div>
+      <div class="ps">
+        Previous Savings:
+        <span>{{ getPreviousSavings(monthData.year, monthData.month) }}</span>
+      </div>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <section>
+    <div class="income">
+      <exp-table />
+    </div>
+    <div class="expenditure">
+      <exp-table />
+    </div>
+  </section>
+</mat-expansion-panel>
+}

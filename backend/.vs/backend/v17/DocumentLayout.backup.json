@@ -34,8 +34,7 @@
               "RelativeToolTip": "DataAccess\\Entities\\Transaction.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-07T21:01:30.856Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-07T21:01:30.856Z"
             },
             {
               "$type": "Document",
@@ -57,7 +56,7 @@
               "RelativeDocumentMoniker": "backend\\Controllers\\TransactionController.cs",
               "ToolTip": "C:\\Users\\joaop\\OneDrive\\Documentos\\Projects_FullStack\\Expense_Tracker\\backend\\backend\\Controllers\\TransactionController.cs",
               "RelativeToolTip": "backend\\Controllers\\TransactionController.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAIwEAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACYAAAAAAAAAAAAwwEAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-06T19:53:21.635Z",
               "EditorCaption": ""

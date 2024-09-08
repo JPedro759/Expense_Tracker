@@ -1,0 +1,37 @@
+mat-expansion-panel {
+  margin-bottom: 1rem;
+
+  mat-panel-title {
+    span {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #69f0ae;
+      margin-right: 1rem;
+    }
+  }
+
+  mat-panel-description {
+    div {
+      margin-right: 1rem;
+      font-size: 1rem;
+
+      span {
+        font-size: 1.1rem;
+        font-style: normal;
+        font-weight: bold;
+        margin-left: 0.25rem;
+        color: #43a047;
+      }
+    }
+    .ex {
+      span {
+        color: #f44336;
+      }
+    }
+  }
+
+  section {
+    display: flex;
+    justify-content: space-between;
+  }
+}

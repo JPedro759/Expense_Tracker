@@ -7,6 +7,10 @@ export const routes: Routes = [
       import('./components/maintenance/maintenance.component'),
   },
   {
+    path: 'view',
+    loadComponent: () => import('./components/view-data/view-data.component'),
+  },
+  {
     path: '',
     redirectTo: 'maintenance',
     pathMatch: 'full',
