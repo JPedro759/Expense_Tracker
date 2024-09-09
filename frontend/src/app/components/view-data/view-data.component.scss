@@ -33,5 +33,18 @@ mat-expansion-panel {
   section {
     display: flex;
     justify-content: space-between;
+
+    h4 {
+      text-align: center;
+      letter-spacing: 2px;
+    }
+
+    .income h4 {
+      color: #43a047;
+    }
+
+    .expenditure h4 {
+      color: #f44336;
+    }
   }
 }
