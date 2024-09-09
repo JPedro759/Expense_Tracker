@@ -20,9 +20,7 @@ export default class ViewDataComponent implements OnInit {
 
   ngOnInit(): void {
     this.#apiService.getMonthlyTransactions().subscribe({
-      next: (res: MonthlyTransactions[]) => {
-        this.data = res;
-      },
+      next: (res: MonthlyTransactions[]) => (this.data = res),
     });
   }
 
