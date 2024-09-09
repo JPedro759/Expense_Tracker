@@ -48,6 +48,16 @@
   },
   {
     "ContainingType": "backend.Controllers.TransactionController",
+    "Method": "GetMothlyTransactions",
+    "RelativePath": "api/Transaction/GetMonthlyTransactions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "backend.Controllers.TransactionController",
     "Method": "Upsert",
     "RelativePath": "api/Transaction/Upsert",
     "HttpMethod": "POST",

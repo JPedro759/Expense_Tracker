@@ -67,13 +67,17 @@ public class TransactionController : ControllerBase
     }
 
     [HttpGet("GetMonthlyTransactions")]
-    public async Task<IActionResult> GetMonthlyTransactions()
+    public async Task<IActionResult> GetMothlyTransactions()
     {
         var transactions = await Context.Transactions.ToListAsync();
 
-        var monthlyTransactions = transactions.GroupBy(k => new {k.Date.Year, k.Date.Month},)
+        var monthlyTransactions = transactions.GroupBy(
+            k => new { k.Date.Year, k.Date.Month },
+            e => e,
+            (key, group) => new { key.Year, Month = key.Month - 1, Transactions = group.ToList() })
+            .OrderBy(e => e.Year).ThenBy(e => e.Month).ToList();
 
-        return Ok();
+        return Ok(monthlyTransactions);
     }
 
 }

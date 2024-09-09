@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Transaction } from './../../interfaces/transaction.interface';
+import { Component, inject, OnInit } from '@angular/core';
 import { MaterialModule } from '../../material/material.module';
 import { MonthlyTransactions } from '../../interfaces/monthly_transactions.interface';
 import { MonthNamePipe } from '../../pipes/month-name.pipe';
 import { ExpTableComponent } from '../exp-table/exp-table.component';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'view-data',
@@ -11,51 +13,18 @@ import { ExpTableComponent } from '../exp-table/exp-table.component';
   templateUrl: './view-data.component.html',
   styleUrl: './view-data.component.scss',
 })
-export default class ViewDataComponent {
-  data: MonthlyTransactions[] = [
-    {
-      year: 2018,
-      month: 7,
-      transactions: [
-        {
-          id: 1,
-          date: new Date(2018, 7, 12),
-          description: 'Food',
-          amount: 7000,
-          type: 'DEBIT',
-          createdOn: new Date(),
-        },
-      ],
-    },
-    {
-      year: 2021,
-      month: 5,
-      transactions: [
-        {
-          id: 2,
-          date: new Date(2021, 5, 22),
-          description: 'Food',
-          amount: 3000,
-          type: 'CREDIT',
-          createdOn: new Date(),
-        },
-      ],
-    },
-    {
-      year: 2024,
-      month: 4,
-      transactions: [
-        {
-          id: 3,
-          date: new Date(2020, 4, 1),
-          description: 'Food',
-          amount: 5000,
-          type: 'CREDIT',
-          createdOn: new Date(),
-        },
-      ],
-    },
-  ];
+export default class ViewDataComponent implements OnInit {
+  #apiService = inject(ApiService);
+
+  data: MonthlyTransactions[] = [];
+
+  ngOnInit(): void {
+    this.#apiService.getMonthlyTransactions().subscribe({
+      next: (res: MonthlyTransactions[]) => {
+        this.data = res;
+      },
+    });
+  }
 
   getEarnings(year: number, month: number) {
     return (
@@ -100,5 +69,13 @@ export default class ViewDataComponent {
     if (month > 0) return { year: year, month: --month };
 
     return { year: --year, month: 11 };
+  }
+
+  hasIncome(transactions: Transaction[]): boolean {
+    return transactions.filter((t) => t.type === 'CREDIT').length > 0;
+  }
+
+  hasExpense(transactions: Transaction[]): boolean {
+    return transactions.filter((t) => t.type === 'DEBIT').length > 0;
   }
 }

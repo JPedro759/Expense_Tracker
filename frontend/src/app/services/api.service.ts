@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Transaction } from '../interfaces/transaction.interface';
 import { Observable } from 'rxjs';
+import { MonthlyTransactions } from '../interfaces/monthly_transactions.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -28,5 +29,11 @@ export class ApiService {
 
   deleteTransaction(id: number): Observable<void> {
     return this.#http.delete<void>(`${this.#baseUrl}/Delete/${id}`);
+  }
+
+  getMonthlyTransactions(): Observable<MonthlyTransactions[]> {
+    return this.#http.get<MonthlyTransactions[]>(
+      `${this.#baseUrl}/GetMonthlyTransactions`
+    );
   }
 }

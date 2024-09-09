@@ -1,4 +1,8 @@
-@for (monthData of data; track data) {
+@if (data.length <= 0) {
+
+<h1>No Data Found!</h1>
+
+} @else { @for (monthData of data; track data) {
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title>
@@ -20,20 +24,30 @@
       </div>
       <div class="ps">
         Previous Savings:
-        <span>R$ {{ getPreviousSavings(monthData.year, monthData.month) }}</span>
+        <span
+          >R$ {{ getPreviousSavings(monthData.year, monthData.month) }}</span
+        >
       </div>
     </mat-panel-description>
   </mat-expansion-panel-header>
 
   <section>
     <div class="income">
+      @if (hasIncome(monthData.transactions)){
       <h4>Income</h4>
       <exp-table [transactions]="monthData.transactions" />
+      } @else {
+      <h4>No Income in this Month!</h4>
+      }
     </div>
     <div class="expenditure">
+      @if (hasExpense(monthData.transactions)){
       <h4>Expenditure</h4>
       <exp-table [transactions]="monthData.transactions" [type]="'DEBIT'" />
+      } @else {
+      <h4>No Expense in this Month!</h4>
+      }
     </div>
   </section>
 </mat-expansion-panel>
-}
+} }
