@@ -64,3 +64,65 @@
     color: #85a9ec;
   }
 }
+
+@media (max-width: 768px) {
+  .insert-form {
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    mat-form-field {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+
+    .year,
+    .month,
+    .type,
+    .day,
+    .amount,
+    .description {
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 1rem;
+    }
+  }
+
+  .table {
+    margin-top: 20px;
+
+    .mat-mdc-header-cell {
+      font-size: 1rem;
+    }
+
+    .btn_edit {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .insert-form {
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    button {
+      font-size: 0.9rem;
+    }
+  }
+
+  .table {
+    .mat-mdc-header-cell {
+      font-size: 0.9rem;
+    }
+
+    .btn_edit {
+      font-size: 1rem;
+    }
+  }
+}

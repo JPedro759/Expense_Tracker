@@ -11,6 +11,10 @@ mat-expansion-panel {
   }
 
   mat-panel-description {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
     div {
       margin-right: 1rem;
       font-size: 1rem;
@@ -23,6 +27,7 @@ mat-expansion-panel {
         color: #43a047;
       }
     }
+
     .ex {
       span {
         color: #f44336;
@@ -32,7 +37,8 @@ mat-expansion-panel {
 
   section {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
 
     h4 {
       text-align: center;
@@ -45,6 +51,71 @@ mat-expansion-panel {
 
     .expenditure h4 {
       color: #f44336;
+    }
+  }
+
+  @media (max-width: 768px) {
+    mat-panel-title {
+      span {
+        font-size: 1rem;
+        margin-right: 0.5rem;
+      }
+    }
+
+    mat-panel-description {
+      div {
+        font-size: 0.8rem;
+        margin-right: 0.5rem;
+
+        span {
+          font-size: 0.8rem;
+        }
+      }
+
+      .ex {
+        span {
+          color: #f44336;
+        }
+      }
+    }
+
+    section {
+      flex-direction: column;
+
+      .income,
+      .expenditure {
+        width: 100%;
+
+        h4 {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    mat-panel-title {
+      span {
+        font-size: 0.9rem;
+        margin-right: 0.25rem;
+      }
+    }
+
+    mat-panel-description {
+      div {
+        font-size: 0.8rem;
+        margin-right: 0.25rem;
+
+        span {
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    section {
+      h4 {
+        font-size: 0.9rem;
+      }
     }
   }
 }
